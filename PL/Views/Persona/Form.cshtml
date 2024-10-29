@@ -1,0 +1,249 @@
+﻿@model ML.Persona
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="card card-container">
+            <div class="card-header">
+                <h4><strong>Persona <i class="bi bi-person"></i></strong></h4>
+            </div>
+            <div class="col-12">
+                @using (Html.BeginForm("Form", "Persona", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.IdPersona)
+
+                    if (Model.TipoPersonaFiscal.Descripcion == "Física" || Model.TipoPersonaFiscal.Descripcion == "Física con Actividad Empresarial")
+                    {
+                        <div class="row m-4 justify-content-lg-center">
+                            <div class="col-12 col-md-4">
+                                <i class="bi bi-person-fill"></i> @Html.LabelFor(model => model.Nombre, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <i class="bi bi-person"></i> @Html.LabelFor(model => model.ApellidoPaterno, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <i class="bi bi-person-fill"></i> @Html.LabelFor(model => model.ApellidoMaterno, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row m-4 justify-content-lg-center">
+                            <div class="col-4">
+                                <i class="bi bi-person-square"></i> @Html.LabelFor(model => model.RFC, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.RFC, new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-person-vcard"></i> @Html.LabelFor(model => model.CURP, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.CURP, new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-geo"></i> @Html.LabelFor(model => model.Pais.Nombre, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.Pais.IdPais, new SelectList(Model.Pais.Paises, "IdPais", "Nombre"), "Selecciona un país...", new { @class = "form-select", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row m-4 justify-content-lg-center">
+                            <div class="col-4">
+                                <i class="bi bi-person-workspace"></i> @Html.LabelFor(model => model.Ocupacion.Nombre, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.Ocupacion.IdOcupacion, new SelectList(Model.Ocupacion.Ocupaciones, "IdOcupacion", "Nombre"), "Selecciona una ocupación...", new { @class = "form-select", @required = "required" })
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-gender-ambiguous"></i> @Html.LabelFor(model => model.Sexo.Nombre, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.Sexo.IdSexo, new SelectList(Model.Sexo.Sexos, "IdSexo", "Nombre"), "Selecciona un sexo...", new { @class = "form-select", @required = "required" })
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-award"></i> @Html.LabelFor(model => model.TipoPersonaFiscal.Descripcion, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.TipoPersonaFiscal.IdTipoPersonaFiscal, new SelectList(Model.TipoPersonaFiscal.TiposPersonaFiscal, "IdTipoPersonaFiscal", "Descripcion"), "Selecciona un tipo...", new { @class = "form-select", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row m-4 justify-content-lg-center">
+                            <div class="col-4">
+
+                            </div>
+
+                            <div class="col-4">
+                                <i class="bi bi-check2-circle"></i>
+                                @Html.LabelFor(model => model.Estatus, new { @class = "form-label" })
+                                <br />
+                                @Html.RadioButtonFor(model => model.Estatus, true, new { @class = "form-check-input", id = "estatusActivo", @required = "required" })
+                                <label for="estatusActivo" class="form-check-label">Activo</label>
+                                &nbsp; &nbsp;
+                                @Html.RadioButtonFor(model => model.Estatus, false, new { @class = "form-check-input", id = "estatusCancelado", @required = "required" })
+                                <label for="estatusCancelado" class="form-check-label">Cancelado</label>
+                            </div>
+
+
+                            <div class="col-4">
+
+                            </div>
+                        </div>
+                    }
+                    else if (Model.TipoPersonaFiscal.Descripcion == "Moral")
+                    {
+                        <div class="row m-4 justify-content-lg-center">
+                            <div class="col-12 col-md-4">
+                                <i class="bi bi-person-fill"></i> @Html.LabelFor(model => model.Nombre, new { @class = "form-label" }) o Razón Social
+                                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-person-square"></i> @Html.LabelFor(model => model.RFC, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model.RFC, new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-geo"></i> @Html.LabelFor(model => model.Pais.Nombre, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.Pais.IdPais, new SelectList(Model.Pais.Paises, "IdPais", "Nombre"), "Selecciona un país...", new { @class = "form-select", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row m-4 justify-content-lg-center">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4">
+                                <i class="bi bi-award"></i> @Html.LabelFor(model => model.TipoPersonaFiscal.Descripcion, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.TipoPersonaFiscal.IdTipoPersonaFiscal, new SelectList(Model.TipoPersonaFiscal.TiposPersonaFiscal, "IdTipoPersonaFiscal", "Descripcion"), "Selecciona un tipo...", new { @class = "form-select", @required = "required" })
+                            </div>
+                            <div class="col-4">
+
+                            </div>
+                        </div>
+                        <div class="row m-4 justify-content-lg-center">
+                            <div class="col-4">
+
+                            </div>
+
+                            <div class="col-4">
+                                <i class="bi bi-check2-circle"></i>
+                                @Html.LabelFor(model => model.Estatus, new { @class = "form-label" })
+                                <br />
+                                @Html.RadioButtonFor(model => model.Estatus, true, new { @class = "form-check-input", id = "estatusActivo", @required = "required" })
+                                <label for="estatusActivo" class="form-check-label">Activo</label>
+                                &nbsp; &nbsp;
+                                @Html.RadioButtonFor(model => model.Estatus, false, new { @class = "form-check-input", id = "estatusCancelado", @required = "required" })
+                                <label for="estatusCancelado" class="form-check-label">Cancelado</label>
+                            </div>
+
+
+                            <div class="col-4">
+
+                            </div>
+                        </div>
+                    }
+
+                    <br />
+                    <div class="card-footer">
+                        <div class="row m-4 justify-content-center">
+                            <button type="submit" class="btn btn-success col-8">
+                                <i class="bi bi-floppy"></i> Guardar
+                            </button>
+                        </div>
+                        <div class="row m-4 justify-content-center">
+                            @Html.ActionLink(" Cancelar", "GetAll", "Persona", new { @class = "btn btn-danger bi bi-x-square col-8" })
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        @if (Model.IdPersona != 0)
+        {
+            <hr />
+            <div class="card card-container">
+                <div class="card-header">
+                    <h4><strong>Cuentas <i class="bi bi-person-vcard"></i></strong></h4>
+                </div>
+                <div class="card-body">
+
+                    @if (Model.Cuenta.Cuentas != null && Model.Cuenta.Cuentas.Any())
+                    {
+                        <div id="noAccountsAlert">
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Número de Cuenta</th>
+                                    <th>Banco</th>
+                                    <th>Baja</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ML.Cuenta cuenta in Model.Cuenta.Cuentas)
+                                {
+                                    <tr>
+                                        <td>@cuenta.NumeroCuenta</td>
+                                        <td>@cuenta.Banco.Nombre</td>
+                                        <td>
+                                            <a class="btn btn-danger" href="@Url.Action("DeleteCuenta", "Persona", new { IdCuenta = cuenta.IdCuenta, IdPersona = cuenta.Persona.IdPersona, tipoPersona = Model.TipoPersonaFiscal.Descripcion })"
+                                               onclick="return confirm('¿Desea eliminar el registro?');" })>
+                                                <i class="bi bi-trash"></i> Baja
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger" role="alert" id="noAccountsAlert">
+                            No se encontraron cuentas asociadas a esta persona.
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <br />
+
+            <button id="showAddAccountFormBtn" class="btn btn-primary" onclick="showAddAccountForm()"><i class="bi bi-plus-circle"></i> Agregar Cuenta</button>
+
+            <div id="addAccountForm" class="card mt-3" style="display: none;">
+                <div class="card-header">
+                    <h5><i class="bi bi-plus-circle"></i> Agregar Cuenta</h5>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AddCuenta", "Persona", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(model => model.IdPersona)
+                        @Html.HiddenFor(model => model.TipoPersonaFiscal.Descripcion)
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-credit-card-2-front"></i>
+                                @Html.LabelFor(model => model.Cuenta.NumeroCuenta)
+                            </label>
+                            @Html.TextBoxFor(model => model.Cuenta.NumeroCuenta, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-bank"></i>
+                                @Html.LabelFor(model => model.Cuenta.Banco.Nombre)
+                            </label>
+                            @Html.DropDownListFor(
+                                model => model.Cuenta.Banco.IdBanco,
+                                new SelectList(Model.Cuenta.Banco.Bancos, "IdBanco", "Nombre"),
+                                "Selecciona un banco...",
+                                new { @class = "form-select", @required = "required" }
+                            )
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-floppy"></i> Guardar
+                        </button>
+                    }
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+<script>
+    function showAddAccountForm() {
+        document.getElementById("noAccountsAlert").style.display = "none";
+        document.getElementById("showAddAccountFormBtn").style.display = "none";
+        document.getElementById("addAccountForm").style.display = "block";
+    }
+</script>

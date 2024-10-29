@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="225505e0808c4f76abc06e74df547483" Name="Diagram1">
+        <EntityTypeShape EntityType="JMendozaExamenBackEndModel.Banco" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JMendozaExamenBackEndModel.Cuenta" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JMendozaExamenBackEndModel.Ocupacion" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JMendozaExamenBackEndModel.Pai" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JMendozaExamenBackEndModel.Persona" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="JMendozaExamenBackEndModel.Sexo" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JMendozaExamenBackEndModel.TipoPersonaFiscal" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <AssociationConnector Association="JMendozaExamenBackEndModel.FK__Cuenta__IdBanco__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="JMendozaExamenBackEndModel.FK__Cuenta__IdPerson__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="JMendozaExamenBackEndModel.FK__Persona__IdOcupa__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="JMendozaExamenBackEndModel.FK__Persona__IdPais__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="JMendozaExamenBackEndModel.FK__Persona__IdSexo__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="JMendozaExamenBackEndModel.FK__Persona__IdTipoP__1BFD2C07" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

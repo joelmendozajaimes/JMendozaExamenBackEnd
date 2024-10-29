@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JMendozaExamenBackEndModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="IdBanco" />
+          </Key>
+          <Property Name="IdBanco" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="IdCuenta" />
+          </Key>
+          <Property Name="IdCuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroCuenta" Type="int" />
+          <Property Name="IdPersona" Type="int" />
+          <Property Name="IdBanco" Type="int" />
+        </EntityType>
+        <EntityType Name="Ocupacion">
+          <Key>
+            <PropertyRef Name="IdOcupacion" />
+          </Key>
+          <Property Name="IdOcupacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="IdTipoPersonaFiscal" Type="int" />
+          <Property Name="RFC" Type="varchar" MaxLength="13" />
+          <Property Name="CURP" Type="varchar" MaxLength="18" />
+          <Property Name="IdPais" Type="int" />
+          <Property Name="IdOcupacion" Type="int" />
+          <Property Name="IdSexo" Type="int" />
+          <Property Name="Estatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="IdSexo" />
+          </Key>
+          <Property Name="IdSexo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TipoPersonaFiscal">
+          <Key>
+            <PropertyRef Name="IdTipoPersonaFiscal" />
+          </Key>
+          <Property Name="IdTipoPersonaFiscal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Cuenta__IdBanco__267ABA7A">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="IdBanco" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdBanco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__IdPerson__25869641">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdOcupa__1DE57479">
+          <End Role="Ocupacion" Type="Self.Ocupacion" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ocupacion">
+              <PropertyRef Name="IdOcupacion" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdOcupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdPais__1CF15040">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdSexo__1ED998B2">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="IdSexo" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdTipoP__1BFD2C07">
+          <End Role="TipoPersonaFiscal" Type="Self.TipoPersonaFiscal" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPersonaFiscal">
+              <PropertyRef Name="IdTipoPersonaFiscal" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdTipoPersonaFiscal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JMendozaExamenBackEndModelStoreContainer">
+          <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ocupacion" EntityType="Self.Ocupacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoPersonaFiscal" EntityType="Self.TipoPersonaFiscal" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cuenta__IdBanco__267ABA7A" Association="Self.FK__Cuenta__IdBanco__267ABA7A">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__IdPerson__25869641" Association="Self.FK__Cuenta__IdPerson__25869641">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdOcupa__1DE57479" Association="Self.FK__Persona__IdOcupa__1DE57479">
+            <End Role="Ocupacion" EntitySet="Ocupacion" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdPais__1CF15040" Association="Self.FK__Persona__IdPais__1CF15040">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdSexo__1ED998B2" Association="Self.FK__Persona__IdSexo__1ED998B2">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdTipoP__1BFD2C07" Association="Self.FK__Persona__IdTipoP__1BFD2C07">
+            <End Role="TipoPersonaFiscal" EntitySet="TipoPersonaFiscal" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JMendozaExamenBackEndModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="IdBanco" />
+          </Key>
+          <Property Name="IdBanco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cuentas" Relationship="Self.FK__Cuenta__IdBanco__267ABA7A" FromRole="Banco" ToRole="Cuenta" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="IdCuenta" />
+          </Key>
+          <Property Name="IdCuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroCuenta" Type="Int32" />
+          <Property Name="IdPersona" Type="Int32" />
+          <Property Name="IdBanco" Type="Int32" />
+          <NavigationProperty Name="Banco" Relationship="Self.FK__Cuenta__IdBanco__267ABA7A" FromRole="Cuenta" ToRole="Banco" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK__Cuenta__IdPerson__25869641" FromRole="Cuenta" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Ocupacion">
+          <Key>
+            <PropertyRef Name="IdOcupacion" />
+          </Key>
+          <Property Name="IdOcupacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK__Persona__IdOcupa__1DE57479" FromRole="Ocupacion" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Pai">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK__Persona__IdPais__1CF15040" FromRole="Pais" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoPersonaFiscal" Type="Int32" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="IdPais" Type="Int32" />
+          <Property Name="IdOcupacion" Type="Int32" />
+          <Property Name="IdSexo" Type="Int32" />
+          <Property Name="Estatus" Type="Boolean" />
+          <NavigationProperty Name="Cuentas" Relationship="Self.FK__Cuenta__IdPerson__25869641" FromRole="Persona" ToRole="Cuenta" />
+          <NavigationProperty Name="Ocupacion" Relationship="Self.FK__Persona__IdOcupa__1DE57479" FromRole="Persona" ToRole="Ocupacion" />
+          <NavigationProperty Name="Pai" Relationship="Self.FK__Persona__IdPais__1CF15040" FromRole="Persona" ToRole="Pais" />
+          <NavigationProperty Name="Sexo" Relationship="Self.FK__Persona__IdSexo__1ED998B2" FromRole="Persona" ToRole="Sexo" />
+          <NavigationProperty Name="TipoPersonaFiscal" Relationship="Self.FK__Persona__IdTipoP__1BFD2C07" FromRole="Persona" ToRole="TipoPersonaFiscal" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="IdSexo" />
+          </Key>
+          <Property Name="IdSexo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK__Persona__IdSexo__1ED998B2" FromRole="Sexo" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="TipoPersonaFiscal">
+          <Key>
+            <PropertyRef Name="IdTipoPersonaFiscal" />
+          </Key>
+          <Property Name="IdTipoPersonaFiscal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK__Persona__IdTipoP__1BFD2C07" FromRole="TipoPersonaFiscal" ToRole="Persona" />
+        </EntityType>
+        <Association Name="FK__Cuenta__IdBanco__267ABA7A">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="IdBanco" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdBanco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__IdPerson__25869641">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdOcupa__1DE57479">
+          <End Role="Ocupacion" Type="Self.Ocupacion" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ocupacion">
+              <PropertyRef Name="IdOcupacion" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdOcupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdPais__1CF15040">
+          <End Role="Pais" Type="Self.Pai" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdSexo__1ED998B2">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="IdSexo" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdTipoP__1BFD2C07">
+          <End Role="TipoPersonaFiscal" Type="Self.TipoPersonaFiscal" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPersonaFiscal">
+              <PropertyRef Name="IdTipoPersonaFiscal" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdTipoPersonaFiscal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JMendozaExamenBackEndEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bancoes" EntityType="Self.Banco" />
+          <EntitySet Name="Cuentas" EntityType="Self.Cuenta" />
+          <EntitySet Name="Ocupacions" EntityType="Self.Ocupacion" />
+          <EntitySet Name="Pais" EntityType="Self.Pai" />
+          <EntitySet Name="Personas" EntityType="Self.Persona" />
+          <EntitySet Name="Sexoes" EntityType="Self.Sexo" />
+          <EntitySet Name="TipoPersonaFiscals" EntityType="Self.TipoPersonaFiscal" />
+          <AssociationSet Name="FK__Cuenta__IdBanco__267ABA7A" Association="Self.FK__Cuenta__IdBanco__267ABA7A">
+            <End Role="Banco" EntitySet="Bancoes" />
+            <End Role="Cuenta" EntitySet="Cuentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__IdPerson__25869641" Association="Self.FK__Cuenta__IdPerson__25869641">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Cuenta" EntitySet="Cuentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdOcupa__1DE57479" Association="Self.FK__Persona__IdOcupa__1DE57479">
+            <End Role="Ocupacion" EntitySet="Ocupacions" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdPais__1CF15040" Association="Self.FK__Persona__IdPais__1CF15040">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdSexo__1ED998B2" Association="Self.FK__Persona__IdSexo__1ED998B2">
+            <End Role="Sexo" EntitySet="Sexoes" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdTipoP__1BFD2C07" Association="Self.FK__Persona__IdTipoP__1BFD2C07">
+            <End Role="TipoPersonaFiscal" EntitySet="TipoPersonaFiscals" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JMendozaExamenBackEndModelStoreContainer" CdmEntityContainer="JMendozaExamenBackEndEntities">
+          <EntitySetMapping Name="Bancoes">
+            <EntityTypeMapping TypeName="JMendozaExamenBackEndModel.Banco">
+              <MappingFragment StoreEntitySet="Banco">
+                <ScalarProperty Name="IdBanco" ColumnName="IdBanco" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuentas">
+            <EntityTypeMapping TypeName="JMendozaExamenBackEndModel.Cuenta">
+              <MappingFragment StoreEntitySet="Cuenta">
+                <ScalarProperty Name="IdCuenta" ColumnName="IdCuenta" />
+                <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdBanco" ColumnName="IdBanco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ocupacions">
+            <EntityTypeMapping TypeName="JMendozaExamenBackEndModel.Ocupacion">
+              <MappingFragment StoreEntitySet="Ocupacion">
+                <ScalarProperty Name="IdOcupacion" ColumnName="IdOcupacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="JMendozaExamenBackEndModel.Pai">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="JMendozaExamenBackEndModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="IdTipoPersonaFiscal" ColumnName="IdTipoPersonaFiscal" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="IdOcupacion" ColumnName="IdOcupacion" />
+                <ScalarProperty Name="IdSexo" ColumnName="IdSexo" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexoes">
+            <EntityTypeMapping TypeName="JMendozaExamenBackEndModel.Sexo">
+              <MappingFragment StoreEntitySet="Sexo">
+                <ScalarProperty Name="IdSexo" ColumnName="IdSexo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPersonaFiscals">
+            <EntityTypeMapping TypeName="JMendozaExamenBackEndModel.TipoPersonaFiscal">
+              <MappingFragment StoreEntitySet="TipoPersonaFiscal">
+                <ScalarProperty Name="IdTipoPersonaFiscal" ColumnName="IdTipoPersonaFiscal" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

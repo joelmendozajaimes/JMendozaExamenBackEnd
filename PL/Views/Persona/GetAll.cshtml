@@ -1,0 +1,79 @@
+﻿@model ML.Persona
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Persona</h2>
+            <h4>Seleccione una Persona para editar o eliminar. Seleccione <strong>+</strong> para agregar una Persona.</h4>
+        </div>
+        <div class="text-right mb-3">
+            @Html.ActionLink(" Persona Física", "Form", new { IdPersona = 0, tipoPersona = "Física" }, new { @class = "btn btn-success bi bi-plus-circle" })
+            @Html.ActionLink(" Persona Moral", "Form", new { IdPersona = 0, tipoPersona = "Moral" }, new { @class = "btn btn-primary bi bi-plus-circle" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            @if (Model.Personas != null)
+            {
+             <table class="table table-hover table-bordered table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Número de Persona</th>
+                            <th>Tipo Persona Fiscal</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>RFC</th>
+                            <th>Estatus</th>
+                            <th>Detalle</th>
+                            <th>Baja</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.Persona persona in Model.Personas)
+                        {
+                        <tr>
+                            <td>@persona.IdPersona</td>
+                            <td>@persona.TipoPersonaFiscal.Descripcion</td>
+                            <td>@persona.Nombre</td>
+                            <td>@(persona.ApellidoPaterno ?? "N/A")</td>
+                            <td>@(persona.ApellidoMaterno ?? "N/A")</td>
+                            <td>@persona.RFC</td>
+                            @if (persona.Estatus)
+                            {
+                                <td>Activo</td>
+                            }
+                            else
+                            {
+                                <td>Cancelado</td>
+                            }
+                            <td>
+                                <a class="btn btn-warning" href="@Url.Action("Form", "Persona", new { IdPersona = persona.IdPersona })">
+                                    <i class="bi bi-pencil-square"></i> Detalle
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" href="@Url.Action("Delete", "Persona", new { IdPersona = persona.IdPersona })"
+                                   onclick="return confirm('¿Desea eliminar el registro?');" })>
+                                    <i class="bi bi-trash"></i> Baja
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else 
+            { 
+                <div class="alert alert-danger">
+                    @ViewBag.Message
+                </div>
+            }
+        </div>
+    </div>
+</div>
