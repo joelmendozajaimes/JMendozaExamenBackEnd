@@ -27,24 +27,7 @@
             </div>
 
             <div class="modal-body">
-
-                @if (ViewBag.Message is string)
-                {
-                    <h5>@ViewBag.Message</h5>
-                }
-                else
-                {
-                    <div class="alert alert-danger">
-                        <h4>Se encontraron los siguientes errores:</h4>
-                        <ul>
-                            @foreach (var error in ViewBag.Message)
-                            {
-                                <li>Registro @error.NumeroRegistro: @error.MensajeError</li>
-                            }
-                        </ul>
-                    </div>
-                }
-
+                <h5>@ViewBag.Message</h5>
             </div>
 
             <div class="modal-footer">

@@ -126,7 +126,8 @@ namespace PL.Controllers
         public ActionResult Form(ML.Persona persona)
         {
             ML.Result result = new ML.Result();
-            if(persona.IdPersona == 0)
+            ViewBag.IsCuenta = false;
+            if (persona.IdPersona == 0)
             {
                 result = BL.Persona.Add(persona);
 
@@ -159,6 +160,7 @@ namespace PL.Controllers
         public ActionResult Delete(int IdPersona)
         {
             ML.Result result = new ML.Result();
+            ViewBag.IsCuenta = false;
             if (IdPersona != 0)
             {
                 result = BL.Persona.Delete(IdPersona);
